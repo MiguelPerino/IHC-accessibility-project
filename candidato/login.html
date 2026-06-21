@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-read>Entrar — Candidato | ConectaVaga</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="auth-body">
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="back-btn" data-read>Voltar para a página anterior</a>
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">&#9632;</span>
+        <span class="logo-text" data-read>ConectaVaga</span>
+      </a>
+      <div style="width:80px"></div>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-box">
+
+      <p class="auth-eyebrow" data-read>Candidato</p>
+      <h1 class="auth-title" data-read>Bem-vindo de volta</h1>
+      <p class="auth-subtitle" data-read>Use seu CPF ou e-mail para acessar sua conta</p>
+
+      <div class="card" style="background:#EEF2FF;border:1.5px solid #C7D2FE;border-radius:14px;padding:16px 18px;margin-bottom:16px;text-align:center;">
+        <div style="font-size:1.6rem;margin-bottom:8px;">💼</div>
+        <p style="font-size:0.88rem;color:#3730A3;line-height:1.6;margin:0;" data-read>
+          O <strong>ConectaVaga</strong> é gratuito e ajuda você a encontrar emprego perto de você.<br>
+          Nossa assistente virtual monta seu currículo com perguntas simples — sem precisar digitar muito.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="alert alert-info mb-3">
+          <span data-read>Não tem conta ainda? <a href="cadastro.html" data-read><strong>Cadastre-se grátis</strong></a data-read> — leva menos de 2 minutos.</span>
+        </div>
+
+        <form id="loginForm" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="cpfEmail" data-read>
+            CPF ou E-mail <span class="form-required">*</span>
+            </label>
+            <input class="form-control" type="text" id="cpfEmail"
+              placeholder="000.000.000-00 ou seu@email.com"
+              required autocomplete="username">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="senha" data-read>
+            Senha <span class="form-required">*</span>
+            </label>
+            <input class="form-control" type="password" id="senha"
+              placeholder="Sua senha" required autocomplete="current-password">
+            <p class="form-hint"><a href="recuperar-senha.html" data-read>Esqueci minha senha</a></p>
+          </div>
+
+          <div id="erroLogin" class="alert alert-danger mb-2" style="display:none">
+            <span data-read>CPF/e-mail ou senha incorretos. Tente novamente.</span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full btn-lg mt-1" data-read>
+          Entrar na Conta
+          </button>
+        </form>
+
+        <p class="auth-switch" data-read>
+          Não tem conta? <a href="cadastro.html" data-read>Criar conta grátis</a>
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p data-read>© 2024 ConectaVaga</p>
+  </footer>
+
+  <script>
+    function limparErro(id) {
+      document.getElementById(id).classList.remove('campo-erro');
+    }
+    document.getElementById('cpfEmail').addEventListener('input', function() { limparErro('cpfEmail'); });
+    document.getElementById('senha').addEventListener('input',    function() { limparErro('senha'); });
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var idEl    = document.getElementById('cpfEmail');
+      var senhaEl = document.getElementById('senha');
+      var id      = idEl.value.trim();
+      var senha   = senhaEl.value;
+      var erro    = document.getElementById('erroLogin');
+      var temErro = false;
+
+      if (!id) {
+        idEl.classList.add('campo-erro');
+        idEl.focus();
+        temErro = true;
+      }
+      if (!senha) {
+        senhaEl.classList.add('campo-erro');
+        if (!temErro) senhaEl.focus();
+        temErro = true;
+      }
+      if (temErro) {
+        erro.querySelector('span').textContent = 'Preencha os campos destacados em vermelho para continuar.';
+        erro.style.display = 'flex';
+        return;
+      }
+      erro.style.display = 'none';
+      localStorage.setItem('cv_user_id', id);
+      window.location.href = 'vagas.html';
+    });
+  </script>
+<script src="../script.js"></script>
+</body>
+</html>

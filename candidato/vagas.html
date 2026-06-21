@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-read>Vagas para você | ConectaVaga</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .filtro-bar { background:#fff; border-bottom:1px solid var(--border); padding:16px 20px; }
+    .filtro-row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .filtro-row select,
+    .filtro-row input[type=text] {
+      flex:1; min-width:160px;
+      border:1px solid var(--border); border-radius:var(--r);
+      padding:10px 12px; font-size:0.95rem; background:#fff;
+      color:var(--text); outline:none; font-family:inherit;
+    }
+    .filtro-row select:focus,
+    .filtro-row input[type=text]:focus { border-color:var(--blue); }
+    .filtro-check { display:flex; align-items:center; gap:8px; font-size:0.9rem; white-space:nowrap; cursor:pointer; }
+    .filtro-check input[type=checkbox] { width:18px; height:18px; accent-color:var(--blue); cursor:pointer; }
+    .filtro-info { font-size:0.85rem; color:var(--text-muted); margin-top:10px; }
+
+    .vagas-grid { display:flex; flex-direction:column; gap:12px; padding:20px; max-width:720px; margin:0 auto; }
+
+    .vaga-card { background:#fff; border:1px solid var(--border); border-radius:var(--r-lg); padding:20px; transition:box-shadow 0.15s; }
+    .vaga-card:hover { box-shadow:var(--s); }
+    .vaga-card-topo { display:flex; gap:14px; align-items:flex-start; margin-bottom:12px; }
+    .vaga-logo { width:48px; height:48px; border-radius:12px; background:var(--blue-light); color:var(--blue);
+      display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.85rem; flex-shrink:0; }
+    .vaga-titulo { font-weight:800; font-size:1.05rem; color:var(--text); line-height:1.3; }
+    .vaga-empresa { font-size:0.85rem; color:var(--text-muted); margin-top:2px; }
+    .vaga-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+    .vaga-sal { font-size:0.95rem; font-weight:700; color:var(--green); margin-bottom:14px; }
+    .badge-sem-exp { background:#DCFCE7; color:#15803D; font-size:0.78rem; font-weight:700;
+      padding:3px 10px; border-radius:99px; display:inline-block; }
+
+    .detalhe-wrap { max-width:680px; margin:0 auto; padding:24px 20px 56px; }
+    .detalhe-topo { display:flex; gap:16px; align-items:flex-start; margin-bottom:20px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+    .detalhe-logo { width:64px; height:64px; border-radius:16px; background:var(--blue-light); color:var(--blue);
+      display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1rem; flex-shrink:0; }
+    .detalhe-titulo { font-size:1.4rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+    .detalhe-empresa { font-size:0.95rem; color:var(--text-muted); }
+    .detalhe-sec { margin-bottom:18px; }
+    .detalhe-sec-label { font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:6px; }
+    .detalhe-sec-text { font-size:0.95rem; line-height:1.6; }
+    .detalhe-info-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px; }
+    .info-item { background:var(--bg); border-radius:var(--r); padding:12px 14px; }
+    .info-item-label { font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); margin-bottom:4px; }
+    .info-item-valor { font-size:0.95rem; font-weight:600; }
+    .info-item-valor.sal-verde { color:var(--green); }
+
+    .sucesso-wrap { max-width:480px; margin:0 auto; padding:40px 20px; text-align:center; }
+    .sucesso-icon { width:64px; height:64px; border-radius:16px; background:#DCFCE7; color:var(--green);
+      display:flex; align-items:center; justify-content:center; font-size:0.85rem; font-weight:800; margin:0 auto 20px; }
+    .sem-resultado { text-align:center; padding:40px 20px; }
+
+    @media(max-width:520px) {
+      .detalhe-info-grid { grid-template-columns:1fr; }
+      .filtro-row select,
+      .filtro-row input[type=text] { min-width:100%; flex:unset; width:100%; }
+    }
+  </style>
+</head>
+<body style="min-height:100vh;display:flex;flex-direction:column;">
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="back-btn" data-read>Início</a>
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">&#9632;</span>
+        <span class="logo-text" data-read>ConectaVaga</span>
+      </a>
+      <div class="header-user-info">
+        <a href="curriculo.html" class="btn btn-ghost btn-sm" data-read>Análise com IA</a>
+        <a href="candidaturas.html" class="btn btn-ghost btn-sm" data-read>Minhas candidaturas</a>
+        <a href="../index.html" class="btn btn-ghost btn-sm" data-read>Sair</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tela 1: listagem de vagas -->
+  <div id="telaLista" style="flex:1;display:flex;flex-direction:column;">
+    <div class="filtro-bar">
+      <div class="filtro-row">
+        <select id="filtroArea">
+          <option value="" data-read>Todas as áreas</option>
+          <option data-read>Vendas e Comércio</option>
+          <option data-read>Administrativo</option>
+          <option data-read>Alimentação e Gastronomia</option>
+          <option data-read>Limpeza e Conservação</option>
+          <option data-read>Logística e Transporte</option>
+          <option data-read>Construção Civil</option>
+          <option data-read>Saúde e Cuidados</option>
+          <option data-read>Educação</option>
+          <option data-read>Segurança</option>
+          <option data-read>Tecnologia</option>
+          <option data-read>Indústria e Produção</option>
+          <option data-read>Serviços Gerais</option>
+        </select>
+        <input type="text" id="filtroCidade" placeholder="📍 Filtrar por cidade...">
+        <label class="filtro-check">
+          <input type="checkbox" id="filtroSemExp" data-read>
+          Sem experiência
+        </label>
+      </div>
+      <p class="filtro-info" id="filtroInfo"></p>
+    </div>
+
+    <div class="vagas-grid" id="vagasGrid"></div>
+
+    <div class="sem-resultado" id="semResultados" style="display:none;">
+      <p style="font-size:1.1rem;font-weight:700;margin-bottom:8px;" data-read>Nenhuma vaga encontrada</p>
+      <p class="text-muted" data-read>Tente outros filtros para encontrar mais oportunidades.</p>
+      <button class="btn btn-outline mt-3" onclick="limparFiltros()" data-read>Limpar filtros</button>
+    </div>
+  </div>
+
+  <!-- Tela 2: detalhe da vaga -->
+  <div id="telaDetalhe" style="display:none;flex:1;">
+    <div class="detalhe-wrap">
+      <button class="btn btn-outline btn-sm mb-4" onclick="voltarLista()" data-read>Voltar às vagas</button>
+      <div id="detalheConteudo"></div>
+
+      <div id="jaCandidatou" class="alert alert-success mb-3" style="display:none;">
+        <span data-read>Você já se candidatou a esta vaga.</span>
+      </div>
+
+      <button id="btnCandidatar" class="btn btn-primary btn-full btn-lg" onclick="confirmarCandidatura()" data-read>
+        Candidatar-se a esta vaga
+      </button>
+      <a href="candidaturas.html" id="linkMinhasCandidaturas" class="btn btn-outline btn-full mt-2" style="display:none;" data-read>
+        Ver minhas candidaturas
+      </a>
+      <button class="btn btn-outline btn-full mt-2" onclick="voltarLista()" data-read>Ver outras vagas</button>
+    </div>
+  </div>
+
+  <!-- Tela 3: candidatura confirmada -->
+  <div id="telaSucesso" style="display:none;flex:1;align-items:center;justify-content:center;">
+    <div class="sucesso-wrap">
+      <div class="sucesso-icon" style="font-size:1.8rem;">🎉</div>
+      <h2 style="font-size:1.6rem;font-weight:800;margin-bottom:10px;letter-spacing:-0.02em;" data-read>
+        Candidatura enviada!
+      </h2>
+      <p class="text-muted" style="margin-bottom:28px;" data-read>
+        Sua candidatura foi registrada com sucesso.
+        Assim que a empresa analisar seu perfil, você poderá acompanhar aqui.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <a href="candidaturas.html" class="btn btn-primary btn-lg" data-read>Ver minhas candidaturas</a>
+        <button class="btn btn-outline btn-lg" onclick="voltarLista()" data-read>Ver mais vagas</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p data-read>© 2024 ConectaVaga</p>
+  </footer>
+
+  <script>
+    var VAGAS = [
+      {
+        id: 1,
+        titulo: 'Auxiliar de Vendas',
+        empresa: 'Mercado Oliveira Ltda.',
+        area: 'Vendas e Comércio',
+        cidade: 'São Paulo',
+        estado: 'SP',
+        contrato: 'CLT (carteira assinada)',
+        turno: 'Integral (8h)',
+        salario: 'R$ 1.412 – R$ 1.600',
+        semExperiencia: true,
+        descricao: 'Atendimento aos clientes no balcão e caixa, organização das prateleiras e controle básico de estoque. Ambiente de trabalho agradável com equipe receptiva.',
+        requisitos: 'Ensino Médio completo. Gostar de atender pessoas. Disponibilidade para fins de semana.',
+        beneficios: 'Vale-transporte, Vale-alimentação, Plano de saúde após período de experiência.'
+      },
+      {
+        id: 2,
+        titulo: 'Atendente de Lanchonete',
+        empresa: 'Restaurante Bom Sabor',
+        area: 'Alimentação e Gastronomia',
+        cidade: 'Guarulhos',
+        estado: 'SP',
+        contrato: 'CLT (carteira assinada)',
+        turno: 'Tarde',
+        salario: 'R$ 1.412',
+        semExperiencia: true,
+        descricao: 'Atendimento e montagem de pedidos, limpeza e organização do ambiente, operação de caixa e entrega no balcão.',
+        requisitos: 'Ensino Médio incompleto aceito. Boa comunicação e agilidade. Disponibilidade para o turno da tarde (12h–20h).',
+        beneficios: 'Vale-transporte, Refeição no local, Uniformes fornecidos.'
+      },
+      {
+        id: 3,
+        titulo: 'Auxiliar de Limpeza',
+        empresa: 'Supermercado Boa Vista',
+        area: 'Limpeza e Conservação',
+        cidade: 'São Paulo',
+        estado: 'SP',
+        contrato: 'CLT (carteira assinada)',
+        turno: 'Manhã',
+        salario: 'A combinar',
+        semExperiencia: true,
+        descricao: 'Limpeza e conservação das áreas internas do supermercado, corredores, banheiros e área de estoque.',
+        requisitos: 'Não é necessária experiência anterior. Disposição e responsabilidade.',
+        beneficios: 'Vale-transporte, Vale-alimentação.'
+      },
+      {
+        id: 4,
+        titulo: 'Repositor de Estoque',
+        empresa: 'Mercado Oliveira Ltda.',
+        area: 'Vendas e Comércio',
+        cidade: 'São Paulo',
+        estado: 'SP',
+        contrato: 'CLT (carteira assinada)',
+        turno: 'Noturno',
+        salario: 'R$ 1.600 – R$ 1.800',
+        semExperiencia: false,
+        descricao: 'Organização e reposição de produtos nas gôndolas, controle de validade, recebimento e conferência de mercadorias.',
+        requisitos: 'Experiência anterior em repositor ou estoque. Ensino Médio completo. Disponibilidade para trabalho noturno.',
+        beneficios: 'Vale-transporte, Adicional noturno, Plano de saúde.'
+      },
+      {
+        id: 5,
+        titulo: 'Auxiliar de Cozinha',
+        empresa: 'Restaurante Bom Sabor',
+        area: 'Alimentação e Gastronomia',
+        cidade: 'Guarulhos',
+        estado: 'SP',
+        contrato: 'CLT (carteira assinada)',
+        turno: 'Integral (8h)',
+        salario: 'R$ 1.500 – R$ 1.800',
+        semExperiencia: true,
+        descricao: 'Auxílio no preparo de pratos, higienização de utensílios e ambiente de cozinha, organização de ingredientes.',
+        requisitos: 'Ensino Fundamental completo. Vontade de aprender. Gostar de trabalhar com alimentação.',
+        beneficios: 'Refeição no local, Vale-transporte, Uniformes fornecidos.'
+      },
+      {
+        id: 6,
+        titulo: 'Auxiliar Administrativo',
+        empresa: 'Construtora Futuro S.A.',
+        area: 'Administrativo',
+        cidade: 'Santo André',
+        estado: 'SP',
+        contrato: 'Estágio',
+        turno: 'Meio período — manhã',
+        salario: 'R$ 800 (bolsa)',
+        semExperiencia: true,
+        descricao: 'Apoio em tarefas administrativas: digitação, organização de documentos, atendimento telefônico e controle de planilhas básicas.',
+        requisitos: 'Cursando Ensino Médio ou Superior. Noções básicas de informática. Organização e atenção.',
+        beneficios: 'Vale-transporte, Bolsa estágio, Possibilidade de efetivação.'
+      },
+      {
+        id: 7,
+        titulo: 'Operador de Produção',
+        empresa: 'Indústria Rápida Ltda.',
+        area: 'Indústria e Produção',
+        cidade: 'São Bernardo do Campo',
+        estado: 'SP',
+        contrato: 'CLT (carteira assinada)',
+        turno: 'Integral (8h)',
+        salario: 'R$ 1.412 – R$ 1.700',
+        semExperiencia: true,
+        descricao: 'Operação de máquinas na linha de produção, controle de qualidade básico e organização do posto de trabalho. Treinamento oferecido.',
+        requisitos: 'Ensino Médio completo. Pontualidade e responsabilidade. Experiência não é necessária.',
+        beneficios: 'Vale-transporte, Vale-alimentação, Plano de saúde, PLR anual.'
+      },
+      {
+        id: 8,
+        titulo: 'Serviços Gerais',
+        empresa: 'Padaria Central',
+        area: 'Serviços Gerais',
+        cidade: 'São Paulo',
+        estado: 'SP',
+        contrato: 'Temporário',
+        turno: 'Flexível',
+        salario: 'A combinar',
+        semExperiencia: true,
+        descricao: 'Limpeza e organização do estabelecimento, pequenas manutenções e apoio às atividades gerais da padaria.',
+        requisitos: 'Não é necessária experiência. Disposição e pontualidade.',
+        beneficios: 'Vale-transporte, Alimentação no local, Possibilidade de contratação efetiva.'
+      }
+    ];
+
+    var vagaAtual = null;
+
+    function iniciais(titulo) {
+      return titulo.split(' ').slice(0, 2).map(function(w) { return w[0]; }).join('').toUpperCase();
+    }
+
+    function candidaturasIds() {
+      var lista = JSON.parse(localStorage.getItem('cv_candidaturas') || '[]');
+      return lista.map(function(c) { return c.id; });
+    }
+
+    function renderVagas() {
+      var area   = document.getElementById('filtroArea').value;
+      var cidade = document.getElementById('filtroCidade').value.trim().toLowerCase();
+      var semExp = document.getElementById('filtroSemExp').checked;
+      var jaFeitos = candidaturasIds();
+
+      var filtradas = VAGAS.filter(function(v) {
+        if (area   && v.area !== area) return false;
+        if (cidade && v.cidade.toLowerCase().indexOf(cidade) === -1) return false;
+        if (semExp && !v.semExperiencia) return false;
+        return true;
+      });
+
+      var grid   = document.getElementById('vagasGrid');
+      var semRes = document.getElementById('semResultados');
+
+      document.getElementById('filtroInfo').textContent =
+        filtradas.length + (filtradas.length === 1 ? ' vaga encontrada' : ' vagas encontradas');
+
+      if (filtradas.length === 0) {
+        grid.innerHTML = '';
+        semRes.style.display = 'block';
+        return;
+      }
+
+      semRes.style.display = 'none';
+      grid.innerHTML = filtradas.map(function(v) {
+        var jaFez = jaFeitos.indexOf(v.id) !== -1;
+        return '<div class="vaga-card">' +
+          '<div class="vaga-card-topo">' +
+            '<div class="vaga-logo">' + iniciais(v.titulo) + '</div>' +
+            '<div>' +
+              '<div class="vaga-titulo">' + v.titulo + '</div>' +
+              '<div class="vaga-empresa">' + v.empresa + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="vaga-chips">' +
+            '<span class="tag-chip">' + v.area + '</span>' +
+            '<span class="tag-chip">' + v.cidade + '/' + v.estado + '</span>' +
+            '<span class="tag-chip">' + v.contrato.split(' ')[0] + '</span>' +
+            (v.semExperiencia ? '<span class="badge-sem-exp">Sem experiência</span>' : '') +
+            (jaFez ? '<span class="badge badge-success">Candidatado</span>' : '') +
+          '</div>' +
+          '<div class="vaga-sal">' + v.salario + '</div>' +
+          '<button class="btn btn-primary btn-full" onclick="abrirVaga(' + v.id + ')">' +
+            (jaFez ? 'Ver vaga' : 'Ver e se candidatar') +
+          '</button>' +
+        '</div>';
+      }).join('');
+    }
+
+    function abrirVaga(id) {
+      vagaAtual = null;
+      for (var i = 0; i < VAGAS.length; i++) {
+        if (VAGAS[i].id === id) { vagaAtual = VAGAS[i]; break; }
+      }
+      if (!vagaAtual) return;
+
+      var jaFez = candidaturasIds().indexOf(id) !== -1;
+
+      document.getElementById('detalheConteudo').innerHTML =
+        '<div class="detalhe-topo">' +
+          '<div class="detalhe-logo">' + iniciais(vagaAtual.titulo) + '</div>' +
+          '<div>' +
+            '<div class="detalhe-titulo">' + vagaAtual.titulo + '</div>' +
+            '<div class="detalhe-empresa">' + vagaAtual.empresa + ' &middot; ' + vagaAtual.cidade + '/' + vagaAtual.estado + '</div>' +
+            (vagaAtual.semExperiencia ? '<span class="badge-sem-exp" style="margin-top:6px;display:inline-block;">Sem experiência</span>' : '') +
+          '</div>' +
+        '</div>' +
+        '<div class="detalhe-info-grid">' +
+          '<div class="info-item"><div class="info-item-label">📄 Contrato</div><div class="info-item-valor">' + vagaAtual.contrato + '</div></div>' +
+          '<div class="info-item"><div class="info-item-label">⏰ Turno</div><div class="info-item-valor">' + vagaAtual.turno + '</div></div>' +
+          '<div class="info-item"><div class="info-item-label">💰 Salário</div><div class="info-item-valor sal-verde">' + vagaAtual.salario + '</div></div>' +
+          '<div class="info-item"><div class="info-item-label">🏭 Área</div><div class="info-item-valor">' + vagaAtual.area + '</div></div>' +
+        '</div>' +
+        '<div class="detalhe-sec"><div class="detalhe-sec-label">💼 O que você vai fazer</div><div class="detalhe-sec-text">' + vagaAtual.descricao + '</div></div>' +
+        '<div class="detalhe-sec"><div class="detalhe-sec-label">✅ Requisitos</div><div class="detalhe-sec-text">' + vagaAtual.requisitos + '</div></div>' +
+        '<div class="detalhe-sec"><div class="detalhe-sec-label">🎁 Benefícios</div><div class="detalhe-sec-text">' + vagaAtual.beneficios + '</div></div>';
+
+      document.getElementById('jaCandidatou').style.display   = jaFez ? 'flex' : 'none';
+      document.getElementById('btnCandidatar').style.display   = jaFez ? 'none' : 'block';
+      document.getElementById('linkMinhasCandidaturas').style.display = jaFez ? 'block' : 'none';
+
+      document.getElementById('telaLista').style.display   = 'none';
+      document.getElementById('telaDetalhe').style.display = 'block';
+      document.getElementById('telaSucesso').style.display = 'none';
+      window.scrollTo(0, 0);
+    }
+
+    function confirmarCandidatura() {
+      if (!vagaAtual) return;
+      var lista = JSON.parse(localStorage.getItem('cv_candidaturas') || '[]');
+      var jaExiste = lista.some(function(c) { return c.id === vagaAtual.id; });
+      if (!jaExiste) {
+        var hoje = new Date().toLocaleDateString('pt-BR');
+        lista.push({
+          id:      vagaAtual.id,
+          titulo:  vagaAtual.titulo,
+          empresa: vagaAtual.empresa,
+          area:    vagaAtual.area,
+          cidade:  vagaAtual.cidade,
+          data:    hoje,
+          status:  'Em análise'
+        });
+        localStorage.setItem('cv_candidaturas', JSON.stringify(lista));
+      }
+      document.getElementById('telaLista').style.display   = 'none';
+      document.getElementById('telaDetalhe').style.display = 'none';
+      document.getElementById('telaSucesso').style.display = 'flex';
+      window.scrollTo(0, 0);
+    }
+
+    function voltarLista() {
+      vagaAtual = null;
+      document.getElementById('telaLista').style.display   = 'flex';
+      document.getElementById('telaDetalhe').style.display = 'none';
+      document.getElementById('telaSucesso').style.display = 'none';
+      renderVagas();
+      window.scrollTo(0, 0);
+    }
+
+    function limparFiltros() {
+      document.getElementById('filtroArea').value       = '';
+      document.getElementById('filtroCidade').value     = '';
+      document.getElementById('filtroSemExp').checked   = false;
+      renderVagas();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var areaUsuario = localStorage.getItem('cv_area') || '';
+      var semExp      = localStorage.getItem('cv_semexp') === '1';
+      var nomeUsuario = localStorage.getItem('cv_nome') || '';
+
+      if (nomeUsuario) {
+        var primeiroNome = nomeUsuario.split(' ')[0];
+        document.getElementById('filtroInfo').textContent = 'Olá, ' + primeiroNome + '! Veja as vagas selecionadas para você:';
+      }
+
+      if (areaUsuario) {
+        var sel = document.getElementById('filtroArea');
+        for (var i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].value === areaUsuario) { sel.selectedIndex = i; break; }
+        }
+      }
+
+      if (semExp) {
+        document.getElementById('filtroSemExp').checked = true;
+      }
+
+      document.getElementById('filtroArea').addEventListener('change', renderVagas);
+      document.getElementById('filtroCidade').addEventListener('input', renderVagas);
+      document.getElementById('filtroSemExp').addEventListener('change', renderVagas);
+
+      renderVagas();
+    });
+  </script>
+<script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Administrativo | ConectaVaga</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body style="min-height:100vh;display:flex;flex-direction:column;">
+
+  <header class="header" style="background:var(--dark-2);">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">💼</span>
+        <span class="logo-text">ConectaVaga</span>
+      </a>
+      <div class="header-user-info">
+        <span class="header-user-name">Administrador</span>
+        <a href="../index.html" class="btn btn-ghost btn-sm">Sair</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="dash-layout" style="flex:1;">
+
+    <aside class="dash-sidebar">
+      <p class="sidebar-section-label">Visão geral</p>
+      <ul class="sidebar-nav">
+        <li>
+          <a href="dashboard.html" class="active">
+            <span class="nav-icon">&#9632;</span> Painel
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="nav-icon">&#9632;</span> Empresas
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="nav-icon">&#9670;</span> Candidatos
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="nav-icon">&#9776;</span> Vagas
+          </a>
+        </li>
+      </ul>
+      <p class="sidebar-section-label">Segurança</p>
+      <ul class="sidebar-nav">
+        <li>
+          <a href="#">
+            <span class="nav-icon">&#9201;</span> Validar empresas
+            <span class="badge badge-warning" style="margin-left:auto">3</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="nav-icon">&#9888;</span> Denúncias
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="nav-icon">&#9656;</span> Relatórios
+          </a>
+        </li>
+      </ul>
+      <p class="sidebar-section-label">Sistema</p>
+      <ul class="sidebar-nav">
+        <li>
+          <a href="#">
+            <span class="nav-icon">&#9881;</span> Configurações
+          </a>
+        </li>
+        <li>
+          <a href="../index.html">
+            <span class="nav-icon">&#8592;</span> Sair
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="dash-content">
+
+      <h1 class="dash-title">Painel Administrativo</h1>
+      <p class="dash-subtitle">Visão geral da plataforma — ConectaVaga</p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon-box blue">C</div>
+          <div>
+            <div class="stat-value">248</div>
+            <div class="stat-label">Candidatos cadastrados</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-box green">E</div>
+          <div>
+            <div class="stat-value">32</div>
+            <div class="stat-label">Empresas aprovadas</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-box orange">P</div>
+          <div>
+            <div class="stat-value">3</div>
+            <div class="stat-label">Aguardando validação</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-box dark">V</div>
+          <div>
+            <div class="stat-value">87</div>
+            <div class="stat-label">Vagas ativas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-card mb-4">
+        <div class="table-card-header">
+          <h2 class="table-card-title">
+            Empresas aguardando validação
+            <span class="badge badge-warning" style="margin-left:8px">3 pendentes</span>
+          </h2>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Empresa</th>
+              <th>CNPJ</th>
+              <th>Setor</th>
+              <th>Cidade</th>
+              <th>Cadastrada em</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="fw-bold">Mercado Oliveira Ltda.</div>
+                <div class="text-muted" style="font-size:0.82rem">Responsável: José Oliveira</div>
+              </td>
+              <td>12.345.678/0001-90</td>
+              <td>Comércio Varejista</td>
+              <td>São Paulo/SP</td>
+              <td>Hoje</td>
+              <td>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-sm btn-success" onclick="aprovar(this, 'Mercado Oliveira Ltda.')">
+                    Aprovar
+                  </button>
+                  <button class="btn btn-sm btn-danger" onclick="rejeitar(this)">
+                    Rejeitar
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="fw-bold">Restaurante Bom Sabor</div>
+                <div class="text-muted" style="font-size:0.82rem">Responsável: Ana Souza</div>
+              </td>
+              <td>98.765.432/0001-11</td>
+              <td>Alimentação</td>
+              <td>Guarulhos/SP</td>
+              <td>Ontem</td>
+              <td>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-sm btn-success" onclick="aprovar(this, 'Restaurante Bom Sabor')">
+                    Aprovar
+                  </button>
+                  <button class="btn btn-sm btn-danger" onclick="rejeitar(this)">
+                    Rejeitar
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="fw-bold">Construtora Futuro S.A.</div>
+                <div class="text-muted" style="font-size:0.82rem">Responsável: Pedro Costa</div>
+              </td>
+              <td>55.123.456/0001-33</td>
+              <td>Construção Civil</td>
+              <td>Santo André/SP</td>
+              <td>12/01/2024</td>
+              <td>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-sm btn-success" onclick="aprovar(this, 'Construtora Futuro S.A.')">
+                    Aprovar
+                  </button>
+                  <button class="btn btn-sm btn-danger" onclick="rejeitar(this)">
+                    Rejeitar
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-card">
+        <div class="table-card-header">
+          <h2 class="table-card-title">Empresas aprovadas recentemente</h2>
+          <a href="#" class="btn btn-outline btn-sm">Ver todas</a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Empresa</th>
+              <th>Setor</th>
+              <th>Vagas ativas</th>
+              <th>Candidaturas</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="fw-bold">Supermercado Boa Vista</div>
+                <div class="text-muted" style="font-size:0.82rem">Aprovada em 10/01/2024</div>
+              </td>
+              <td>Comércio Varejista</td>
+              <td>4</td>
+              <td>31</td>
+              <td><span class="badge badge-success">Ativa</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="fw-bold">Padaria Central</div>
+                <div class="text-muted" style="font-size:0.82rem">Aprovada em 08/01/2024</div>
+              </td>
+              <td>Alimentação</td>
+              <td>2</td>
+              <td>18</td>
+              <td><span class="badge badge-success">Ativa</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="fw-bold">Transportes Rápido Ltda.</div>
+                <div class="text-muted" style="font-size:0.82rem">Aprovada em 05/01/2024</div>
+              </td>
+              <td>Logística</td>
+              <td>3</td>
+              <td>22</td>
+              <td><span class="badge badge-success">Ativa</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p>© 2024 ConectaVaga — Painel Administrativo</p>
+  </footer>
+
+  <script>
+    function aprovar(btn, nomeEmpresa) {
+      const row = btn.closest('tr');
+      const cellAcoes = row.querySelector('td:last-child');
+      cellAcoes.innerHTML = '<span class="badge badge-success">Aprovada</span>';
+      row.style.opacity = '0.6';
+
+      const nomeCell = row.querySelector('.fw-bold');
+      if (nomeCell) nomeCell.style.textDecoration = 'line-through';
+
+      alert('Empresa "' + nomeEmpresa + '" aprovada com sucesso!\nO responsável será notificado por e-mail.');
+    }
+
+    function rejeitar(btn) {
+      const motivo = prompt('Motivo da rejeição (será enviado ao responsável da empresa):');
+      if (motivo === null) return;
+
+      const row = btn.closest('tr');
+      const cellAcoes = row.querySelector('td:last-child');
+      cellAcoes.innerHTML = '<span class="badge badge-danger">Rejeitada</span>';
+      row.style.opacity = '0.6';
+    }
+  </script>
+
+</body>
+</html>

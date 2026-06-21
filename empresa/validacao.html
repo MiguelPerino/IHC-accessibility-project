@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aguardando Validação | ConectaVaga</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="validation-body">
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="back-btn">← Início</a>
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">💼</span>
+        <span class="logo-text">ConectaVaga</span>
+      </a>
+      <div style="width:80px"></div>
+    </div>
+  </header>
+
+  <div style="background:#fff;border-bottom:1px solid var(--border);padding:18px 24px;">
+    <div class="progress-bar" style="margin-bottom:0;">
+      <div class="step-wrap">
+        <div class="step-dot done">&#10003;</div>
+        <div class="step-name done">Cadastro</div>
+      </div>
+      <div class="step-line done"></div>
+      <div class="step-wrap">
+        <div class="step-dot active">2</div>
+        <div class="step-name active">Validação</div>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-wrap">
+        <div class="step-dot">3</div>
+        <div class="step-name">Publicar vagas</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="validation-main">
+    <div class="validation-box">
+
+      <div style="
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        width:72px;height:72px;
+        border-radius:18px;
+        background:var(--warning-bg);
+        color:var(--warning);
+        font-size:0.9rem;
+        font-weight:800;
+        letter-spacing:0.02em;
+        margin-bottom:20px;
+      ">ANÁLISE</div>
+
+      <h1 class="validation-title">Empresa cadastrada!</h1>
+      <p class="validation-desc">
+        Recebemos o cadastro da sua empresa. Nossa equipe está analisando as informações
+        para garantir a segurança de todos os candidatos. Você receberá um e-mail
+        assim que a validação for concluída.
+      </p>
+
+      <div class="validation-steps-card">
+        <h3 style="font-size:0.875rem;margin-bottom:4px;font-weight:700;">Status da validação</h3>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:14px;">Prazo estimado: até 48 horas úteis</p>
+
+        <div class="vstep">
+          <div class="vstep-num done">1</div>
+          <div class="vstep-text">
+            <strong>Cadastro recebido</strong>
+            <p>Seus dados foram enviados com sucesso.</p>
+          </div>
+        </div>
+        <div class="vstep">
+          <div class="vstep-num active">2</div>
+          <div class="vstep-text">
+            <strong>Análise dos documentos</strong>
+            <p>Nossa equipe está verificando as informações da empresa.</p>
+          </div>
+        </div>
+        <div class="vstep">
+          <div class="vstep-num next">3</div>
+          <div class="vstep-text">
+            <strong>Aprovação e liberação</strong>
+            <p>Após aprovação, você poderá publicar vagas imediatamente.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-info text-center mb-4">
+        <span>Você receberá um e-mail de confirmação quando sua empresa for validada.</span>
+      </div>
+
+      <!-- Simulação para protótipo -->
+      <div class="card mb-3" style="background:var(--warning-bg);border-color:#FDE68A;">
+        <p style="font-size:0.8rem;font-weight:700;color:var(--warning);margin-bottom:8px;">
+          Área de demonstração
+        </p>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:14px;">
+          Para fins de demonstração, clique abaixo para simular a aprovação pelo administrador.
+        </p>
+        <a href="dashboard.html" class="btn btn-secondary btn-full">
+          Simular aprovação e acessar painel
+        </a>
+      </div>
+
+      <a href="../index.html" class="btn btn-outline btn-full">
+        Voltar à página inicial
+      </a>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2024 ConectaVaga</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-read>Meu Perfil | ConectaVaga</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="vagas.html" class="back-btn" data-read>Voltar às vagas</a>
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">&#9632;</span>
+        <span class="logo-text" data-read>ConectaVaga</span>
+      </a>
+      <div style="width:120px"></div>
+    </div>
+  </header>
+
+  <main style="max-width:560px;margin:0 auto;padding:28px 16px 60px;">
+
+    <!-- Cabeçalho do perfil -->
+    <div style="text-align:center;margin-bottom:28px;">
+      <div id="avatarNome" style="
+        width:72px;height:72px;border-radius:50%;
+        background:linear-gradient(135deg,#4F46E5,#7C3AED);
+        color:#fff;font-size:1.6rem;font-weight:800;
+        display:flex;align-items:center;justify-content:center;
+        margin:0 auto 14px;
+      ">?</div>
+      <h1 id="nomeCompleto" style="font-size:1.5rem;margin-bottom:4px;" data-read>Carregando...</h1>
+      <p id="subTitulo" style="color:var(--text-muted);font-size:0.9rem;">—</p>
+    </div>
+
+    <!-- Alerta: currículo não criado -->
+    <div id="alertaSemCurriculo" class="alert alert-warning mb-3" style="display:none;">
+      <span data-read>Você ainda não criou seu currículo. <a href="curriculo.html" data-read><strong>Montar agora com a IA →</strong></a></span>
+    </div>
+
+    <!-- Seções do perfil -->
+    <div id="secoesPerfil">
+
+      <div class="card mb-2">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#7C3AED;margin-bottom:8px;" data-read>Escolaridade</div>
+        <div id="pEscolaridade" style="font-size:1rem;color:#0F172A;">—</div>
+      </div>
+
+      <div class="card mb-2">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#7C3AED;margin-bottom:8px;" data-read>Área de interesse</div>
+        <div id="pArea" style="font-size:1rem;color:#0F172A;">—</div>
+      </div>
+
+      <div class="card mb-2">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#7C3AED;margin-bottom:8px;" data-read>Experiência</div>
+        <div id="pExperiencia" style="font-size:1rem;color:#0F172A;line-height:1.6;">—</div>
+      </div>
+
+      <div class="card mb-2">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#7C3AED;margin-bottom:8px;" data-read>Habilidades</div>
+        <div id="pHabilidades" style="font-size:1rem;color:#0F172A;line-height:1.6;">—</div>
+      </div>
+
+      <div class="card mb-2" style="border-left:3px solid #7C3AED;">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#7C3AED;margin-bottom:8px;" data-read>Perfil profissional (gerado pela IA)</div>
+        <div id="pPerfil" style="font-size:1rem;color:#0F172A;line-height:1.6;font-style:italic;">—</div>
+      </div>
+
+    </div>
+
+    <!-- Ações -->
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:24px;">
+      <a href="curriculo.html" class="btn btn-primary btn-full btn-lg" data-read>
+        Atualizar meu currículo com a IA
+      </a>
+      <a href="vagas.html" class="btn btn-outline btn-full" data-read>
+        Ver vagas disponíveis
+      </a>
+      <a href="candidaturas.html" class="btn btn-outline btn-full" data-read>
+        Minhas candidaturas
+      </a>
+      <button onclick="sair()" class="btn btn-full" style="color:var(--danger);border:1.5px solid var(--border);background:transparent;margin-top:8px;" data-read>
+        Sair da conta
+      </button>
+    </div>
+
+  </main>
+
+  <script>
+    function sair() {
+      if (confirm('Deseja sair da sua conta?')) {
+        localStorage.removeItem('cv_user_id');
+        window.location.href = 'login.html';
+      }
+    }
+
+    var id    = localStorage.getItem('cv_user_id');
+    var dados = id ? JSON.parse(localStorage.getItem('cv_user_' + id) || 'null') : null;
+
+    if (!id) {
+      window.location.href = 'login.html';
+    } else if (!dados || !dados.curriculo_ok) {
+      document.getElementById('nomeCompleto').textContent = localStorage.getItem('cv_nome') || 'Olá!';
+      document.getElementById('avatarNome').textContent   = (localStorage.getItem('cv_nome') || 'U')[0].toUpperCase();
+      document.getElementById('subTitulo').textContent    = 'Seu currículo ainda não foi criado';
+      document.getElementById('alertaSemCurriculo').style.display = 'flex';
+      document.getElementById('secoesPerfil').style.opacity = '0.4';
+    } else {
+      var nome = dados.nome || localStorage.getItem('cv_nome') || 'Usuário';
+      document.getElementById('nomeCompleto').textContent   = nome;
+      document.getElementById('avatarNome').textContent     = nome[0].toUpperCase();
+      document.getElementById('subTitulo').textContent      = dados.area || '—';
+      document.getElementById('pEscolaridade').textContent  = dados.escolaridade  || localStorage.getItem('cv_escolaridade') || '—';
+      document.getElementById('pArea').textContent          = dados.area          || localStorage.getItem('cv_area')         || '—';
+      document.getElementById('pExperiencia').textContent   = dados.experiencia   || localStorage.getItem('cv_experiencia')  || '—';
+      document.getElementById('pHabilidades').textContent   = dados.habilidades   || localStorage.getItem('cv_habilidades')  || '—';
+      document.getElementById('pPerfil').textContent        = dados.perfil        || localStorage.getItem('cv_perfil')       || '—';
+    }
+  </script>
+<script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ConectaVaga</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    html, body { height: 100%; }
+    .page {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+    }
+    .home-header {
+      background: var(--blue);
+      padding: 0 28px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    .home-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 24px;
+      gap: 28px;
+      overflow: hidden;
+    }
+    .home-pergunta {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text);
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      width: 100%;
+      max-width: 960px;
+    }
+    .card-acesso {
+      background: #fff;
+      border-radius: var(--r-xl);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--blue);
+      box-shadow: var(--s-sm);
+      padding: 26px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .card-acesso:hover { box-shadow: var(--s-md); transform: translateY(-2px); }
+    .card-acesso.empresa { border-top-color: var(--green); }
+    .card-acesso.admin   { border-top-color: var(--dark); }
+
+    .card-acesso-titulo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .card-acesso-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    .card-acesso-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      width: 100%;
+    }
+
+    @media (max-width: 860px) {
+      .home-pergunta { font-size: 1.35rem; }
+      .cards { gap: 12px; }
+      .card-acesso { padding: 20px 16px 18px; }
+      .card-acesso-titulo { font-size: 1rem; }
+      .btn-lg { padding: 12px 18px; font-size: 0.9rem; }
+    }
+    @media (max-width: 580px) {
+      .page { height: auto; min-height: 100vh; }
+      .home-main { justify-content: flex-start; padding-top: 28px; overflow: visible; }
+      .cards { grid-template-columns: 1fr; max-width: 400px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header class="home-header">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">💼</span>
+      <span class="logo-text" data-read>ConectaVaga</span>
+    </a>
+  </header>
+
+  <main class="home-main">
+    <h1 class="home-pergunta" data-read>Quem é você?</h1>
+
+    <div class="cards">
+
+      <div class="card-acesso">
+        <div class="card-symbol cs-blue mb-2">👤</div>
+        <div class="card-acesso-titulo" data-read>Sou Candidato</div>
+        <div class="card-acesso-sub" data-read>Estou buscando emprego</div>
+        <div class="card-acesso-btns">
+          <a href="candidato/login.html"    class="btn btn-primary       btn-full btn-lg" data-read>Entrar na Conta</a>
+          <a href="candidato/cadastro.html" class="btn btn-outline        btn-full btn-lg" data-read>Criar conta</a>
+        </div>
+      </div>
+
+      <div class="card-acesso empresa">
+        <div class="card-symbol cs-green mb-2">🏢</div>
+        <div class="card-acesso-titulo" data-read>Sou Empresa</div>
+        <div class="card-acesso-sub" data-read>Quero publicar vagas</div>
+        <div class="card-acesso-btns">
+          <a href="empresa/login.html"    class="btn btn-secondary     btn-full btn-lg" data-read>Entrar</a>
+          <a href="empresa/cadastro.html" class="btn btn-outline-green  btn-full btn-lg" data-read>Cadastrar</a>
+        </div>
+      </div>
+
+      <div class="card-acesso admin">
+        <div class="card-symbol cs-dark mb-2">⚙️</div>
+        <div class="card-acesso-titulo" data-read>Administrador</div>
+        <div class="card-acesso-sub" data-read>Área restrita</div>
+        <div class="card-acesso-btns">
+          <a href="admin/login.html" class="btn btn-dark btn-full btn-lg" data-read>Entrar</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>

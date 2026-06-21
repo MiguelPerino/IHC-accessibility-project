@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-read>Minhas Candidaturas | ConectaVaga</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .cand-card { background:#fff; border:1px solid var(--border); border-radius:var(--r-lg); padding:18px 20px; display:flex; gap:16px; align-items:flex-start; }
+    .cand-logo { width:44px; height:44px; border-radius:10px; background:var(--blue-light); color:var(--blue);
+      display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.8rem; flex-shrink:0; }
+    .cand-titulo { font-weight:800; font-size:1rem; margin-bottom:2px; }
+    .cand-empresa { font-size:0.85rem; color:var(--text-muted); margin-bottom:6px; }
+    .cand-meta { font-size:0.8rem; color:var(--text-muted); }
+    .cand-status { margin-left:auto; flex-shrink:0; }
+    .cands-lista { display:flex; flex-direction:column; gap:10px; }
+    .vazio-wrap { text-align:center; padding:56px 20px; }
+    .vazio-icon { width:64px; height:64px; border-radius:16px; background:var(--bg); color:var(--text-muted);
+      display:flex; align-items:center; justify-content:center; font-size:0.85rem; font-weight:800; margin:0 auto 20px; }
+  </style>
+</head>
+<body style="min-height:100vh;display:flex;flex-direction:column;">
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="vagas.html" class="back-btn" data-read>Ver vagas</a>
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">&#9632;</span>
+        <span class="logo-text" data-read>ConectaVaga</span>
+      </a>
+      <div class="header-user-info">
+        <span class="header-user-name" id="headerNome"></span>
+        <a href="../index.html" class="btn btn-ghost btn-sm" data-read>Sair</a>
+      </div>
+    </div>
+  </header>
+
+  <main style="flex:1;padding:24px 20px 56px;">
+    <div style="max-width:680px;margin:0 auto;">
+
+      <h1 style="font-size:1.5rem;font-weight:800;margin-bottom:4px;letter-spacing:-0.02em;" data-read>
+        Minhas candidaturas
+      </h1>
+      <p class="text-muted mb-4" style="font-size:0.9rem;" data-read>
+        Acompanhe aqui as vagas para as quais você se candidatou.
+      </p>
+
+      <div id="listaCandidaturas" class="cands-lista"></div>
+
+      <div id="semCandidaturas" class="vazio-wrap" style="display:none;">
+        <div class="vazio-icon" style="font-size:1.8rem;">📭</div>
+        <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:8px;" data-read>Nenhuma candidatura ainda</h2>
+        <p class="text-muted" style="margin-bottom:24px;" data-read>
+          Você ainda não se candidatou a nenhuma vaga.<br>
+          Que tal procurar oportunidades agora?
+        </p>
+        <a href="vagas.html" class="btn btn-primary btn-lg" data-read>Ver vagas disponíveis</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p data-read>© 2024 ConectaVaga</p>
+  </footer>
+
+  <script>
+    var STATUS_BADGE = {
+      'Em análise':    'badge-warning',
+      'Entrevista':    'badge-info',
+      'Aprovado':      'badge-success',
+      'Não selecionado': 'badge-danger'
+    };
+    var STATUS_EMOJI = {
+      'Em análise':    '⏳',
+      'Entrevista':    '🎤',
+      'Aprovado':      '✅',
+      'Não selecionado': '😕'
+    };
+
+    function iniciais(titulo) {
+      return titulo.split(' ').slice(0, 2).map(function(w) { return w[0]; }).join('').toUpperCase();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var nome = localStorage.getItem('cv_nome') || '';
+      if (nome) document.getElementById('headerNome').textContent = nome.split(' ')[0];
+
+      var lista = JSON.parse(localStorage.getItem('cv_candidaturas') || '[]');
+
+      if (lista.length === 0) {
+        document.getElementById('semCandidaturas').style.display = 'block';
+        return;
+      }
+
+      var lista_inv = lista.slice().reverse();
+      document.getElementById('listaCandidaturas').innerHTML = lista_inv.map(function(c) {
+        var badge = STATUS_BADGE[c.status] || 'badge-warning';
+        var emoji = STATUS_EMOJI[c.status] || '⏳';
+        return '<div class="cand-card">' +
+          '<div class="cand-logo">' + iniciais(c.titulo) + '</div>' +
+          '<div style="flex:1;min-width:0;">' +
+            '<div class="cand-titulo">' + c.titulo + '</div>' +
+            '<div class="cand-empresa">' + c.empresa + '</div>' +
+            '<div class="cand-meta">🎯 ' + c.area + ' &nbsp;📍 ' + c.cidade + ' &nbsp;📅 ' + c.data + '</div>' +
+          '</div>' +
+          '<div class="cand-status"><span class="badge ' + badge + '">' + emoji + ' ' + c.status + '</span></div>' +
+        '</div>';
+      }).join('');
+    });
+  </script>
+<script src="../script.js"></script>
+</body>
+</html>

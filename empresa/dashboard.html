@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel da Empresa | ConectaVaga</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body style="min-height:100vh;display:flex;flex-direction:column;">
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">💼</span>
+        <span class="logo-text">ConectaVaga</span>
+      </a>
+      <div class="header-user-info">
+        <span class="header-user-name" id="nomeEmpresa">Minha Empresa</span>
+        <span class="badge badge-success">Aprovada</span>
+        <a href="../index.html" class="btn btn-ghost btn-sm">Sair</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="dash-layout" style="flex:1;">
+
+    <aside class="dash-sidebar">
+      <p class="sidebar-section-label">Menu</p>
+      <ul class="sidebar-nav">
+        <li><a href="dashboard.html" class="active"><span class="nav-icon">&#9632;</span> Painel</a></li>
+        <li><a href="criar-vaga.html"><span class="nav-icon">+</span> Publicar vaga</a></li>
+        <li><a href="#"><span class="nav-icon">&#9776;</span> Minhas vagas</a></li>
+        <li><a href="#"><span class="nav-icon">&#9670;</span> Candidaturas</a></li>
+      </ul>
+      <p class="sidebar-section-label">Conta</p>
+      <ul class="sidebar-nav">
+        <li><a href="#"><span class="nav-icon">&#9881;</span> Configurações</a></li>
+        <li><a href="../index.html"><span class="nav-icon">&#8592;</span> Sair</a></li>
+      </ul>
+    </aside>
+
+    <main class="dash-content">
+
+      <h1 class="dash-title" id="bvNome">Bem-vinda!</h1>
+      <p class="dash-subtitle">Gerencie suas vagas e acompanhe as candidaturas recebidas.</p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon-box blue">V</div>
+          <div>
+            <div class="stat-value">2</div>
+            <div class="stat-label">Vagas publicadas</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-box green">A</div>
+          <div>
+            <div class="stat-value">2</div>
+            <div class="stat-label">Vagas ativas</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-box orange">C</div>
+          <div>
+            <div class="stat-value">14</div>
+            <div class="stat-label">Candidaturas</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-box dark">E</div>
+          <div>
+            <div class="stat-value">3</div>
+            <div class="stat-label">Entrevistas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex gap-2 mb-4 align-center">
+        <a href="criar-vaga.html" class="btn btn-secondary">+ Publicar nova vaga</a>
+        <a href="#" class="btn btn-outline">Ver candidaturas</a>
+      </div>
+
+      <div class="table-card">
+        <div class="table-card-header">
+          <h2 class="table-card-title">Minhas vagas</h2>
+          <a href="criar-vaga.html" class="btn btn-secondary btn-sm">+ Nova vaga</a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Vaga</th>
+              <th>Área</th>
+              <th>Candidaturas</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="fw-bold">Auxiliar de Vendas</div>
+                <div class="text-muted" style="font-size:0.78rem">Publicada em 14/01/2024</div>
+              </td>
+              <td>Vendas e Comércio</td>
+              <td><strong>9</strong> <span class="badge badge-info" style="margin-left:4px">3 novas</span></td>
+              <td><span class="badge badge-success">Ativa</span></td>
+              <td>
+                <div class="d-flex gap-2">
+                  <a href="#" class="btn btn-sm btn-outline">Ver</a>
+                  <a href="#" class="btn btn-sm btn-danger" onclick="return confirm('Encerrar esta vaga?')">Encerrar</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="fw-bold">Estoquista</div>
+                <div class="text-muted" style="font-size:0.78rem">Publicada em 10/01/2024</div>
+              </td>
+              <td>Logística</td>
+              <td><strong>5</strong></td>
+              <td><span class="badge badge-success">Ativa</span></td>
+              <td>
+                <div class="d-flex gap-2">
+                  <a href="#" class="btn btn-sm btn-outline">Ver</a>
+                  <a href="#" class="btn btn-sm btn-danger" onclick="return confirm('Encerrar esta vaga?')">Encerrar</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-card">
+        <div class="table-card-header">
+          <h2 class="table-card-title">Candidaturas recentes</h2>
+          <a href="#" class="btn btn-outline btn-sm">Ver todas</a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Candidato</th>
+              <th>Vaga</th>
+              <th>Data</th>
+              <th>Status</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="fw-bold">Maria Santos</div>
+                <div class="text-muted" style="font-size:0.78rem">Ens. Médio · São Paulo/SP</div>
+              </td>
+              <td>Auxiliar de Vendas</td>
+              <td>Hoje</td>
+              <td><span class="badge badge-warning">Novo</span></td>
+              <td><a href="#" class="btn btn-sm btn-primary">Ver perfil</a></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="fw-bold">João Oliveira</div>
+                <div class="text-muted" style="font-size:0.78rem">Ens. Médio · São Paulo/SP</div>
+              </td>
+              <td>Auxiliar de Vendas</td>
+              <td>Ontem</td>
+              <td><span class="badge badge-info">Em análise</span></td>
+              <td><a href="#" class="btn btn-sm btn-primary">Ver perfil</a></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="fw-bold">Ana Lima</div>
+                <div class="text-muted" style="font-size:0.78rem">Técnico · Santo André/SP</div>
+              </td>
+              <td>Estoquista</td>
+              <td>12/01/2024</td>
+              <td><span class="badge badge-success">Aprovado</span></td>
+              <td><a href="#" class="btn btn-sm btn-primary">Ver perfil</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p>© 2024 ConectaVaga</p>
+  </footer>
+
+  <script>
+    const nome = localStorage.getItem('empresa_nome') || 'Minha Empresa';
+    document.getElementById('nomeEmpresa').textContent = nome;
+    document.getElementById('bvNome').textContent = 'Bem-vinda, ' + nome + '!';
+  </script>
+
+</body>
+</html>

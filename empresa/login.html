@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar — Empresa | ConectaVaga</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="auth-body">
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="back-btn">← Voltar</a>
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">💼</span>
+        <span class="logo-text">ConectaVaga</span>
+      </a>
+      <div style="width:80px"></div>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-box">
+
+      <p class="auth-eyebrow">Empresa</p>
+      <h1 class="auth-title">Acessar painel</h1>
+      <p class="auth-subtitle">Entre com o e-mail e senha da sua empresa</p>
+
+      <div class="card">
+        <div class="alert alert-info mb-3">
+          <span>Empresa ainda não cadastrada? <a href="cadastro.html"><strong>Cadastre-se aqui</strong></a></span>
+        </div>
+
+        <form id="loginEmpresaForm" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="email">
+              E-mail da empresa <span class="form-required">*</span>
+            </label>
+            <input class="form-control" type="email" id="email"
+              placeholder="empresa@email.com" required autocomplete="username">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="senha">
+              Senha <span class="form-required">*</span>
+            </label>
+            <input class="form-control" type="password" id="senha"
+              placeholder="Sua senha" required autocomplete="current-password">
+            <p class="form-hint"><a href="#">Esqueci minha senha</a></p>
+          </div>
+
+          <div id="erroLogin" class="alert alert-danger mb-2" style="display:none">
+            <span>E-mail ou senha incorretos. Tente novamente.</span>
+          </div>
+
+          <button type="submit" class="btn btn-secondary btn-full btn-lg mt-1">
+            Entrar
+          </button>
+        </form>
+
+        <p class="auth-switch">
+          Ainda não tem conta? <a href="cadastro.html">Cadastrar empresa</a>
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2024 ConectaVaga</p>
+  </footer>
+
+  <script>
+    document.getElementById('loginEmpresaForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const senha = document.getElementById('senha').value;
+      if (!email || !senha) {
+        document.getElementById('erroLogin').style.display = 'flex';
+        return;
+      }
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+
+</body>
+</html>

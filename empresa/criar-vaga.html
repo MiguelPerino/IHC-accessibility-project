@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publicar Vaga | ConectaVaga</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body style="min-height:100vh;display:flex;flex-direction:column;">
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="dashboard.html" class="back-btn">← Painel</a>
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">💼</span>
+        <span class="logo-text">ConectaVaga</span>
+      </a>
+      <div class="header-user-info">
+        <a href="../index.html" class="btn btn-ghost btn-sm">Sair</a>
+      </div>
+    </div>
+  </header>
+
+  <main style="flex:1;padding:28px 20px 56px;">
+    <div style="max-width:680px;margin:0 auto;">
+
+      <h1 style="font-size:1.5rem;font-weight:800;margin-bottom:4px;letter-spacing:-0.02em;">
+        Publicar nova vaga
+      </h1>
+      <p class="text-muted mb-4" style="font-size:0.9rem;">
+        Preencha os detalhes da vaga para começar a receber candidaturas.
+      </p>
+
+      <!-- Tela de sucesso -->
+      <div id="successScreen" style="display:none;text-align:center;padding:56px 20px;">
+        <div style="
+          display:inline-flex;align-items:center;justify-content:center;
+          width:64px;height:64px;border-radius:16px;
+          background:var(--success-bg);color:var(--success);
+          font-size:0.8rem;font-weight:800;letter-spacing:0.02em;
+          margin-bottom:20px;
+        ">OK</div>
+        <h2 style="font-size:1.6rem;font-weight:800;margin-bottom:10px;letter-spacing:-0.02em;">
+          Vaga publicada!
+        </h2>
+        <p class="text-muted" style="margin-bottom:28px;font-size:0.95rem;">
+          Sua vaga está ativa e já está disponível para os candidatos.
+          Você será notificado quando alguém se candidatar.
+        </p>
+        <div class="d-flex gap-2" style="justify-content:center;flex-wrap:wrap;">
+          <a href="dashboard.html" class="btn btn-secondary btn-lg">Ver meu painel</a>
+          <a href="criar-vaga.html" class="btn btn-outline btn-lg">Publicar outra vaga</a>
+        </div>
+      </div>
+
+      <!-- Formulário -->
+      <form id="vagaForm" novalidate>
+
+        <div class="card mb-3">
+          <p class="form-section-title">Informações da vaga</p>
+
+          <div class="form-group">
+            <label class="form-label" for="titulo">
+              Título da vaga <span class="form-required">*</span>
+            </label>
+            <input class="form-control" type="text" id="titulo" required
+              placeholder="Ex: Auxiliar de Vendas, Repositor de Estoque, Atendente...">
+            <p class="form-hint">Use um título claro e direto para que os candidatos encontrem sua vaga.</p>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="area">Área <span class="form-required">*</span></label>
+              <select class="form-control" id="area" required>
+                <option value="">Selecione...</option>
+                <option>Vendas e Comércio</option>
+                <option>Administrativo</option>
+                <option>Alimentação e Gastronomia</option>
+                <option>Limpeza e Conservação</option>
+                <option>Logística e Transporte</option>
+                <option>Construção Civil</option>
+                <option>Saúde e Cuidados</option>
+                <option>Educação</option>
+                <option>Segurança</option>
+                <option>Tecnologia</option>
+                <option>Indústria e Produção</option>
+                <option>Serviços Gerais</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="numVagas">Número de vagas <span class="form-required">*</span></label>
+              <input class="form-control" type="number" id="numVagas" min="1" max="999" value="1" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="descricao">
+              Descrição da vaga <span class="form-required">*</span>
+            </label>
+            <textarea class="form-control" id="descricao" rows="5" required
+              placeholder="Descreva o que a pessoa vai fazer no dia a dia. Use linguagem simples."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="requisitos">Requisitos</label>
+            <textarea class="form-control" id="requisitos" rows="3"
+              placeholder="Ex: Ensino médio completo, experiência com atendimento ao cliente..."></textarea>
+            <p class="form-hint">Requisitos muito altos podem afastar bons candidatos.</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="beneficios">Benefícios</label>
+            <textarea class="form-control" id="beneficios" rows="2"
+              placeholder="Ex: Vale transporte, Vale alimentação, Plano de saúde..."></textarea>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <p class="form-section-title">Local e condições de trabalho</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="cidade">Cidade <span class="form-required">*</span></label>
+              <input class="form-control" type="text" id="cidade" required placeholder="Cidade da vaga">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="bairro">Bairro</label>
+              <input class="form-control" type="text" id="bairro" placeholder="Bairro (opcional)">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="contrato">Tipo de contrato <span class="form-required">*</span></label>
+              <select class="form-control" id="contrato" required>
+                <option value="">Selecione...</option>
+                <option>CLT (carteira assinada)</option>
+                <option>Temporário</option>
+                <option>Estágio</option>
+                <option>Freelancer / Autônomo</option>
+                <option>Aprendiz</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="turno">Turno</label>
+              <select class="form-control" id="turno">
+                <option value="">Selecione...</option>
+                <option>Integral (8h)</option>
+                <option>Manhã</option>
+                <option>Tarde</option>
+                <option>Noturno</option>
+                <option>Fins de semana</option>
+                <option>Flexível</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="salarioMin">Salário mínimo (R$)</label>
+              <input class="form-control" type="number" id="salarioMin" placeholder="Ex: 1500" min="0">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="salarioMax">Salário máximo (R$)</label>
+              <input class="form-control" type="number" id="salarioMax" placeholder="Ex: 2000" min="0">
+            </div>
+          </div>
+          <p class="form-hint">Deixe em branco para exibir "A combinar" na vaga.</p>
+        </div>
+
+        <div id="erroCampos" class="alert alert-danger mb-3" style="display:none">
+          <span>Preencha os campos obrigatórios: Título, Área, Descrição, Cidade e Tipo de contrato.</span>
+        </div>
+
+        <div class="d-flex gap-2">
+          <a href="dashboard.html" class="btn btn-outline">Cancelar</a>
+          <button type="submit" class="btn btn-secondary btn-lg flex-1">
+            Publicar vaga
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2024 ConectaVaga</p>
+  </footer>
+
+  <script>
+    document.getElementById('vagaForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const titulo   = document.getElementById('titulo').value.trim();
+      const area     = document.getElementById('area').value;
+      const desc     = document.getElementById('descricao').value.trim();
+      const cidade   = document.getElementById('cidade').value.trim();
+      const contrato = document.getElementById('contrato').value;
+
+      document.getElementById('erroCampos').style.display = 'none';
+
+      if (!titulo || !area || !desc || !cidade || !contrato) {
+        document.getElementById('erroCampos').style.display = 'flex';
+        window.scrollTo(0, document.getElementById('erroCampos').offsetTop - 20);
+        return;
+      }
+
+      document.getElementById('vagaForm').style.display    = 'none';
+      document.getElementById('successScreen').style.display = 'block';
+      window.scrollTo(0, 0);
+    });
+  </script>
+
+</body>
+</html>

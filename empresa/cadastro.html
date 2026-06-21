@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastrar Empresa | ConectaVaga</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="auth-body">
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="back-btn">← Voltar</a>
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">💼</span>
+        <span class="logo-text">ConectaVaga</span>
+      </a>
+      <div style="width:80px"></div>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-box" style="max-width:580px">
+
+      <p class="auth-eyebrow">Empresa</p>
+      <h1 class="auth-title">Cadastrar minha empresa</h1>
+      <p class="auth-subtitle">Após o cadastro, nossa equipe validará sua empresa em até 48h</p>
+
+      <div class="progress-bar mb-3">
+        <div class="step-wrap">
+          <div class="step-dot active">1</div>
+          <div class="step-name active">Cadastro</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-wrap">
+          <div class="step-dot">2</div>
+          <div class="step-name">Validação</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-wrap">
+          <div class="step-dot">3</div>
+          <div class="step-name">Publicar vagas</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <form id="cadastroEmpresaForm" novalidate>
+
+          <p class="form-section-title">Dados da empresa</p>
+
+          <div class="form-group">
+            <label class="form-label" for="razaoSocial">
+              Razão social / Nome da empresa <span class="form-required">*</span>
+            </label>
+            <input class="form-control" type="text" id="razaoSocial"
+              placeholder="Nome oficial da empresa" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="cnpj">CNPJ <span class="form-required">*</span></label>
+              <input class="form-control" type="text" id="cnpj"
+                placeholder="00.000.000/0000-00" required maxlength="18">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="porte">Porte</label>
+              <select class="form-control" id="porte">
+                <option value="">Selecione...</option>
+                <option>MEI</option>
+                <option>Microempresa (ME)</option>
+                <option>Pequena empresa</option>
+                <option>Média empresa</option>
+                <option>Grande empresa</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="setor">Setor de atuação <span class="form-required">*</span></label>
+            <select class="form-control" id="setor" required>
+              <option value="">Selecione o setor...</option>
+              <option>Comércio Varejista</option>
+              <option>Alimentação e Restaurantes</option>
+              <option>Construção Civil</option>
+              <option>Saúde</option>
+              <option>Educação</option>
+              <option>Logística e Transporte</option>
+              <option>Indústria</option>
+              <option>Serviços Gerais</option>
+              <option>Tecnologia</option>
+              <option>Agronegócio</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cidade">Cidade <span class="form-required">*</span></label>
+            <input class="form-control" type="text" id="cidade"
+              placeholder="Cidade onde a empresa está localizada" required>
+          </div>
+
+          <hr class="form-divider">
+          <p class="form-section-title">Contato responsável</p>
+
+          <div class="form-group">
+            <label class="form-label" for="responsavel">
+              Nome do responsável <span class="form-required">*</span>
+            </label>
+            <input class="form-control" type="text" id="responsavel"
+              placeholder="Quem irá gerenciar as vagas" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="email">E-mail <span class="form-required">*</span></label>
+              <input class="form-control" type="email" id="email"
+                placeholder="contato@empresa.com" required autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="telefone">Telefone <span class="form-required">*</span></label>
+              <input class="form-control" type="tel" id="telefone"
+                placeholder="(00) 00000-0000" required maxlength="15">
+            </div>
+          </div>
+
+          <hr class="form-divider">
+          <p class="form-section-title">Senha de acesso</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="senha">Senha <span class="form-required">*</span></label>
+              <input class="form-control" type="password" id="senha"
+                placeholder="Mínimo 6 caracteres" required minlength="6"
+                autocomplete="new-password">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="confirmarSenha">Confirmar senha <span class="form-required">*</span></label>
+              <input class="form-control" type="password" id="confirmarSenha"
+                placeholder="Repita a senha" required autocomplete="new-password">
+            </div>
+          </div>
+
+          <div class="alert alert-warning">
+            <span>Após o cadastro, nossa equipe verificará os dados da empresa antes de liberar a publicação de vagas.</span>
+          </div>
+
+          <div id="erroCampos" class="alert alert-danger mt-2" style="display:none">
+            <span>Preencha todos os campos obrigatórios (*).</span>
+          </div>
+          <div id="erroSenha" class="alert alert-danger mt-2" style="display:none">
+            <span>As senhas não coincidem.</span>
+          </div>
+
+          <button type="submit" class="btn btn-secondary btn-full btn-lg mt-3">
+            Cadastrar empresa
+          </button>
+        </form>
+
+        <p class="auth-switch">
+          Já tem cadastro? <a href="login.html">Entrar</a>
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2024 ConectaVaga</p>
+  </footer>
+
+  <script>
+    document.getElementById('cnpj').addEventListener('input', function() {
+      let v = this.value.replace(/\D/g, '').slice(0, 14);
+      v = v.replace(/(\d{2})(\d)/, '$1.$2');
+      v = v.replace(/(\d{3})(\d)/, '$1.$2');
+      v = v.replace(/(\d{3})(\d)/, '$1/$2');
+      v = v.replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+      this.value = v;
+    });
+
+    document.getElementById('telefone').addEventListener('input', function() {
+      let v = this.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length <= 10) {
+        v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+      } else {
+        v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+      }
+      this.value = v.trim().replace(/-$/, '');
+    });
+
+    document.getElementById('cadastroEmpresaForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const razao   = document.getElementById('razaoSocial').value.trim();
+      const cnpj    = document.getElementById('cnpj').value.trim();
+      const setor   = document.getElementById('setor').value;
+      const cidade  = document.getElementById('cidade').value.trim();
+      const resp    = document.getElementById('responsavel').value.trim();
+      const email   = document.getElementById('email').value.trim();
+      const tel     = document.getElementById('telefone').value.trim();
+      const senha   = document.getElementById('senha').value;
+      const confirm = document.getElementById('confirmarSenha').value;
+
+      document.getElementById('erroCampos').style.display = 'none';
+      document.getElementById('erroSenha').style.display  = 'none';
+
+      if (!razao || !cnpj || !setor || !cidade || !resp || !email || !tel || !senha || !confirm) {
+        document.getElementById('erroCampos').style.display = 'flex';
+        return;
+      }
+      if (senha !== confirm) {
+        document.getElementById('erroSenha').style.display = 'flex';
+        return;
+      }
+
+      localStorage.setItem('empresa_nome',   razao);
+      localStorage.setItem('empresa_setor',  setor);
+      localStorage.setItem('empresa_cidade', cidade);
+
+      window.location.href = 'validacao.html';
+    });
+  </script>
+
+</body>
+</html>

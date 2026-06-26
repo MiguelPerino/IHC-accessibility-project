@@ -1,1 +1,1 @@
-window.GROQ_API_KEY = "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";
+window.GROQ_API_KEY = "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";
